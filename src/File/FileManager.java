@@ -1,5 +1,8 @@
 package File;
 
+import Event.EditorFileProcess;
+import Event.FileParser;
+import Event.ProcessListener;
 import Structure.Config;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -35,20 +38,18 @@ public class FileManager {
         }
     }
 
-    public static void openFile(Naoty n) {
+    public static void openFile(Naoty n, FileParser fileParser) {
         try {
             Path file = Paths.get(Config.pathNoteFile + n.getId() + ".txt");
             Runtime r = Runtime.getRuntime();
-            r.exec(Config.defaultEditor+" "+file);
+            Process p = r.exec(Config.defaultEditor + " -w " + file);
+            fileParser.addProcessData(new EditorFileProcess(n.getId(), p));
         } catch (IOException ex) {
             Logger.getLogger(FileManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public static void renameFile(Naoty naoty) {
-    }
-
-    public static void parseFile() {
 
     }
 }

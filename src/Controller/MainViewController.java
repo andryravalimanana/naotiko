@@ -2,12 +2,9 @@ package Controller;
 
 import Database.KeywordDAO;
 import Database.NaotyDAO;
+import Event.FileParser;
 import File.FileManager;
-import View.MainPanel;
 import View.MainView;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -28,11 +25,13 @@ public class MainViewController {
     private NaotyDAO naotyDAO;
     private KeywordDAO keywordDAO;
     private NaotyTableModel ntm;
+    private FileParser fileParser;
 
     public MainViewController(MainView mainView, NaotyDAO n, KeywordDAO k) {
         this.mainView = mainView;
         this.naotyDAO = n;
         this.keywordDAO = k;
+        fileParser = new FileParser(keywordDAO);
         ntm = (NaotyTableModel) mainView.getTable().getModel();
         mainView.setNaotyDAO(naotyDAO);
         event();
@@ -59,6 +58,7 @@ public class MainViewController {
                 openFile();
             }
         });
+        
         // MENUBAR EVENT
         mainView.getMenuBarView().getNewMenuItem().addActionListener(new ActionListener() {
 
@@ -143,7 +143,7 @@ public class MainViewController {
         FileManager.createFile(n);
         ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
         ntm.upDateTable(naotys);
-        FileManager.openFile(n);
+        FileManager.openFile(n, fileParser);
         System.out.println("Tafiditra ny naoty vaovao.");
     }
 
@@ -156,8 +156,7 @@ public class MainViewController {
                 rowData[i] = ((NaotyTableModel) mainView.getTable().getModel()).getValueAt(rows[0], i);
             }
             int id = (int) rowData[0];
-            System.out.println("eto izy: " + id);
-            FileManager.openFile(new Naoty(id, null, null));
+            FileManager.openFile(new Naoty(id, null, null), fileParser);
         }
     }
 
