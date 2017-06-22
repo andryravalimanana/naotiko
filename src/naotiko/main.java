@@ -6,6 +6,9 @@ import Database.KeywordDAO;
 import Database.NaotyDAO;
 import Structure.Config;
 import View.MainView;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 /**
@@ -16,18 +19,19 @@ public class main {
 
     public static void main(String[] args) {
         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
+            try {
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Nimbus".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                System.err.println("Erreur:" + e);
             }
-        } catch (Exception e) {
-            System.err.println("Erreur:" + e);
-        }
-        Config.loadConfig();
-        NaotyDAO naotyDAO = new NaotyDAO(Database.getInstance());
-        KeywordDAO keywordDAO = new KeywordDAO(Database.getInstance());
+            Config.loadConfig();
+            NaotyDAO naotyDAO = new NaotyDAO(Database.getInstance());
+            KeywordDAO keywordDAO = new KeywordDAO(Database.getInstance());
 //        
 //        JFrame mainView = new JFrame();
 //        MainPanel mainPanel = new MainPanel();
@@ -38,7 +42,10 @@ public class main {
 //        mainView.pack();
 //        
 //        MainViewController mvc = new MainViewController(mainPanel, naotyDAO, keywordDAO);
-        MainView mv = new MainView();
-        MainViewController mvc = new MainViewController(mv, naotyDAO, keywordDAO);
+            MainView mv = new MainView();
+            MainViewController mvc = new MainViewController(mv, naotyDAO, keywordDAO);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

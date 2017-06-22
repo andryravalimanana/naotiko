@@ -33,7 +33,7 @@ public class MainViewController {
         this.mainView = mainView;
         this.naotyDAO = n;
         this.keywordDAO = k;
-        ntm =(NaotyTableModel) mainView.getTable().getModel();
+        ntm = (NaotyTableModel) mainView.getTable().getModel();
         mainView.setNaotyDAO(naotyDAO);
         event();
     }
@@ -43,19 +43,14 @@ public class MainViewController {
         mainView.getToolBar().getNewButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Naoty n = newNaoty();
-                if (n != null) {
-                    naotyDAO.insert(n);
-                    n.setId(naotyDAO.nextNoteId() - 1);
-                    FileManager.createFile(n);
-                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
-                    ntm.upDateTable(naotys);
-                    FileManager.openFile(n);
-                    System.out.println("Tafiditra ny naoty vaovao.");
+                String titre = JOptionPane.showInputDialog(mainView, "Ampidiro ny naoty vaovao.", "NAOTY VAOVAO", JOptionPane.INFORMATION_MESSAGE);
+                if (titre != null) {
+                    insertNewNaoty(titre);
                 }
+
             }
         });
-        
+
         // OPEN FILE
         mainView.getToolBar().getAboutButton().addActionListener(new ActionListener() {
 
@@ -69,19 +64,13 @@ public class MainViewController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Naoty n = newNaoty();
-                if (n != null) {
-                    naotyDAO.insert(n);
-                    n.setId(naotyDAO.nextNoteId() - 1);
-                    FileManager.createFile(n);
-                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
-                    ntm.upDateTable(naotys);
-                    FileManager.openFile(n);
-                    System.out.println("Tafiditra ny naoty vaovao.");
+                 String titre = JOptionPane.showInputDialog(mainView, "Ampidiro ny naoty vaovao.", "NAOTY VAOVAO", JOptionPane.INFORMATION_MESSAGE);
+                if (titre != null) {
+                    insertNewNaoty(titre);
                 }
             }
         });
-        
+
         mainView.getMenuBarView().getExitMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -141,19 +130,21 @@ public class MainViewController {
                 }
             }
         });
-        
+
         //
     }
 
-    private Naoty newNaoty() {
-        String titre = JOptionPane.showInputDialog(mainView, "Ampidiro ny naoty vaovao.", "NAOTY VAOVAO", JOptionPane.INFORMATION_MESSAGE);
+    private void insertNewNaoty(String titre) {
         titre.replace("'", "");
         titre.replace("\"", "");
-        if (titre.equals("")) {
-            return null;
-        } else {
-            return new Naoty(titre);
-        }
+        Naoty n = new Naoty(titre);
+        naotyDAO.insert(n);
+        n.setId(naotyDAO.nextNoteId() - 1);
+        FileManager.createFile(n);
+        ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+        ntm.upDateTable(naotys);
+        FileManager.openFile(n);
+        System.out.println("Tafiditra ny naoty vaovao.");
     }
 
     private void openFile() {
@@ -165,7 +156,7 @@ public class MainViewController {
                 rowData[i] = ((NaotyTableModel) mainView.getTable().getModel()).getValueAt(rows[0], i);
             }
             int id = (int) rowData[0];
-            System.out.println("eto izy: "+ id);
+            System.out.println("eto izy: " + id);
             FileManager.openFile(new Naoty(id, null, null));
         }
     }
