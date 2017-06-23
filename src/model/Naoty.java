@@ -12,33 +12,33 @@ public class Naoty {
     private int id;
     private Date date;
     private Time time;
-    private String Title;
-    private String FirstKeyword;
+    private String title;
+    private String firstKeyword;
 
     public Naoty() {
         System.out.println("Naoty instance!");
     }
 
-    public Naoty(String Title) {
-        this.Title = Title;
-        this.FirstKeyword = Title;
+    public Naoty(String title) {
+        this.title = title;
+        this.firstKeyword = title;
         this.date = Date.getNow();
         this.time = Time.getNow();
     }
 
     
-    public Naoty(int id, Date date, Time time, String Title, String FirstKeyword) {
+    public Naoty(int id, Date date, Time time, String title, String firstKeyword) {
         this.id = id;
         this.date = date;
         this.time = time;
-        this.Title = Title;
-        this.FirstKeyword = FirstKeyword;
+        this.title = title;
+        this.firstKeyword = firstKeyword;
     }
 
-    public Naoty(int id, String Title, String FirstKeyword) {
+    public Naoty(int id, String title, String firstKeyword) {
         this.id = id;
-        this.Title = Title;
-        this.FirstKeyword = FirstKeyword;
+        this.title = title;
+        this.firstKeyword = firstKeyword;
         this.date = Date.getNow();
         this.time = Time.getNow();
     }
@@ -68,18 +68,18 @@ public class Naoty {
     }
 
     public String getTitle() {
-        return Title;
+        return title;
     }
 
-    public void setTitle(String Title) {
-        this.Title = Title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getFirstKeyword() {
-        return FirstKeyword;
+        return firstKeyword;
     }
 
-    public void setFirstKeyword(String FirstKeyword) {
-        this.FirstKeyword = FirstKeyword;
+    public void setFirstKeyword(String firstKeyword) {
+        this.firstKeyword = firstKeyword;
     }
 }

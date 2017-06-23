@@ -37,8 +37,8 @@ public class FileParser extends Thread implements ProcessListened {
                         processDataList.remove(processData);
                     }
                 }
-            } catch (ConcurrentModificationException e){
-                System.out.println("Error: "+ e.toString());
+            } catch (ConcurrentModificationException e) {
+                System.out.println("Error: " + e.toString());
             }
         }
     }
@@ -60,18 +60,31 @@ public class FileParser extends Thread implements ProcessListened {
 
     public void parseFile(int idFile) {
         try {
-            Scanner scanner = new Scanner(new File(Config.pathNoteFile+idFile+".txt"));
+            Scanner scanner = new Scanner(new File(Config.pathNoteFile + idFile + ".txt"));
+            ArrayList<Keyword> keyList = keywordDAO.findByNoteID(idFile);
+            ArrayList<String> listString = new ArrayList<String>();
+            System.out.println("****************************************");
+            for (Keyword keyList1 : keyList) {
+                System.out.println(keyList1.getId() + ": " + keyList1.getTitle());
+                listString.add(keyList1.getTitle());
+            }
+            System.out.println("*****************************************");
+            //keywordDAO.insert(new Keyword("ANDRANA", idFile));
             while (scanner.hasNext()) {
                 String key = scanner.nextLine();
                 if (key.startsWith("#")) {
                     key = key.replace("#", "");
                     key = key.replace(":", "");
-                    keywordDAO.insert(new Keyword(key, idFile));
+                    key = key.replace("'", "");
+                    if(!listString.contains(key)){
+                        keywordDAO.insert(new Keyword(key, idFile));
+                    } else {
+                        System.out.println("Efa Misy: "+key);
+                    }
                 }
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestScannerFile.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 }

@@ -1,5 +1,66 @@
-*******************************************************************************************************************************************************TITRE: JAVA
+*******************************************************************************************************************************************************
+TITRE: MANIPULER LES FICHIERS DE CONFIGURATION INI
 ID: 1
-Date: 16-6-2017
-HEURE: 22:37:3*******************************************************************************************************************************************************
+DATE: 13/06/17
+HEURE: 19:30
+*******************************************************************************************************************************************************
+
+EXEMPLE DE FIHCIER INI:
+-----------------------
+[Section1]
+cle11 = valeur11
+cle12 = valeur12
+cle13 = valeur13
+cle14 = 100
+cle15 = 1.123654789
+cle16 = True
+
+[Section2]
+cle21 = valeur21
+cle22 = valeur22
+
+MANIPULER AVEC CONFIGPARSER: MODULE PYTHON:
+-------------------------------------------
+1) cfg = ConfigParser.ConfigParser() ; maka objet configparser
+2) Ra anamboatra fichier de configuration .ini dia
+	* cfg.add_section('Section1') ; mampiditra section vaovao
+	* cfg.set('Section1', 'cle11', 'valeur11') ; mapiditra clé sy valeur ao anatinle section
+	* M="""
+		hivghrfivnirdlsm
+		nhisvnhgidnvgid
+		vnghrfivnghinvg
+		"""
+		cfg.set('Section1', 'cle12', M)	; afaka atao multiligne le valeur ao anaty fichier de config
+	* cfg.write(open('ficherdeconfig.ini','w'))	; manoratra anaty fichier texte .ini
+
+2) Ra iparser fichier .ini ndray dia:
+	* cfg = ConfigParser.ConfigParser()
+	* cfg.read('ficherdeconfig.ini') ; micharge anle fichier .ini
+	* X = cfg.get('Section2', 'cle22')	; maka valeur na clé anaty section iray
+
+3) Afaka maka karazana type na dia sous forme texte foana aza izy anaty fichier de configuration
+Z=cfg.getint('Section1', 'cle14')
+print Z, type(Z)  #  affiche: 100 <type 'int'>
+ 
+Z=cfg.getfloat('Section1', 'cle15')
+print Z, type(Z)  #  affiche: 1.123654789 <type 'float'>
+ 
+Z=cfg.getboolean('Section1', 'cle16')
+print Z, type(Z)  #  affiche: True <type 'bool'>
+
+LISTES FONCTIONS DISPONIBLES:
+-----------------------------
+* Lister toutes les sections disponibles:   
+print cfg.sections()  # affiche: ['Section2', 'Section1']
+* Lister toutes les options disponibles de la section 'Section1' 
+print cfg.options('Section1')  # affiche: ['cle11', 'cle12', 'cle13', 'cle14', 'cle15', 'cle16']
+* Lister tous les couples clé-valeur de la section 'Section1': 
+print cfg.items('Section1')
+* Effacer l'option 'cle12' de la section 'Section1' 
+cfg.remove_option('Section1','cle12')
+* Effacer la section 'Section2' (et toutes ses options) 
+cfg.remove_section('Section2')
+* Et, bien sûr, n'oubliez pas de ré-écrire le fichier sur disque après toutes ces modifications! 
+cfg.write(open('ficherdeconfig.ini','w'))
+
 

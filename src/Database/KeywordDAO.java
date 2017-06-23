@@ -70,7 +70,7 @@ public class KeywordDAO extends DAO<Keyword> {
             ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM KEYWORD WHERE ID = " + id + ";"
             );
             while (result.next()) {
-                keyword = new Keyword(id, result.getString("TITLE"), 12);
+                keyword = new Keyword(id, result.getString("TITLE"), result.getInt("ID_NOTE"));
             }
             Database.getInstance().commit();
             result.close();

@@ -1,0 +1,99 @@
+*******************************************************************************************************************************************************
+TITRE: DAO PATTERN 
+ID: 2
+Date: 19-6-2017
+HEURE: 9:54:21
+*******************************************************************************************************************************************************
+
+# LE BUT DU PATTERN DAO:
+------------------------
+- mety migrena le base de donné de tsy voatery manova ny code rehetra mapiasa azy.
+- mora ny fanaovana ny amelioration any aorina.
+- Ce pattern permet de faire le lien entre la couche d'accès aux données et la couche métier d'une application
+
+# ETAPES PATTERN DAO:
+---------------------
+1) mcreer classe par entité aloa (personne, facture, ...), POJO no fiantso an'ireo objet reo (Plain Old Java Object)
+	* Classe normale avec getter et setter, contructeur ...
+2) mcreer objet izay maka anle donnée any @ base de donnée (io objet io no miiteragir @ DB: Objet DAO ), tsy maintsy manana ny fonction CRUD rehetra io!!
+	* satria ny objet de donnée any @ base samy manana an'io objet mgerer azy io de tsara ra manao interface iray de @ io daholo aveo manao polymorphisme le objet mgérér anle donnée tsirairary! (Figure 1)
+
+# CLASSE GENERIQUE EN JAVA:
+---------------------------
+
+package com.sdz.dao;
+import java.sql.Connection;
+import com.sdz.connection.SdzConnection;
+
+public abstract class DAO<T> {
+protected Connection connect = null;
+public DAO( Connection conn) {
+this. connect = conn;
+}
+/**
+* Méthode de création
+* @param obj
+* @return
+*/
+public abstract boolean create( T obj ) ;
+/**
+* Méthode pour effacer
+* @param obj
+* @return
+*/
+public abstract boolean delete( T obj ) ;
+/**
+* Méthode de mise à jour
+* @param obj
+* @return
+*/
+public abstract boolean update( T obj ) ;
+/**
+* Méthode de recherche des informations
+* @param id
+* @return
+*/
+public abstract T find( int id) ;
+
+}
+
+EXEMPLE CLASSE FILLE:
+---------------------
+public class MatiereDAO extends DAO<Matiere> {
+	public MatiereDAO( Connection conn) {
+		super( conn) ;
+	}
+	public boolean create( Matiere obj ) {
+		return false;
+	}
+	public boolean delete( Matiere obj ) {
+		return false;
+	}
+	public Matiere find( int id) {
+		Matiere matiere = new Matiere() ;
+		try {
+			ResultSet result = this.Connect.createStatement(
+			ResultSet. TYPE_SCROLL_INSENSITIVE,
+			ResultSet. CONCUR_READ_ONLY
+		).executeQuery("SELECT * FROM matiere WHERE mat_id = " + id
+		);
+		if( result. first())
+			matiere = new Matiere(id,
+			result. getString( "mat_nom")) ;
+		}catch ( SQLException e) {
+			e. printStackTrace( ) ;
+		}
+		return matiere;
+	}
+	public boolean update( Matiere obj ) {
+	return false;
+	}
+}
+
+*******************************************************************************************************************************************************
+TITRE: DAO PATTERN
+ID: 2
+Date: 19-6-2017
+HEURE: 10:6:5
+*******************************************************************************************************************************************************
+

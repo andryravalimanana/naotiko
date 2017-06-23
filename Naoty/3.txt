@@ -1,0 +1,51 @@
+﻿*******************************************************************************************************************************************************
+TITRE: PATTERN SINGELTON
+ID: 3
+Date: 19-6-2017
+HEURE: 9:55:26
+*******************************************************************************************************************************************************
+
+Utiliser souvent pour creer une seul objet connexion à une base de donner!
+
+EXEMPLE:
+--------
+package com. sdz. connection;
+public class SdzSingleton {
+/**
+* Le singleton
+*/
+	private volatile static SdzSingleton single;
+/**
+* Variable d'instance
+*/
+	private String name = "";
+/**
+* Constructeur privé
+*/
+	private SdzSingleton( ) {
+		this. name = "Mon singleton";
+		System. out. println( "\n\t\tCREATION DE L' INSTANCE ! ! ! ") ;
+	}
+
+	public static SdzSingleton getInstance( ) {
+		if( single == null) {
+		synchronized( SdzSingleton. class) {
+		if( single == null)
+		single = new SdzSingleton( ) ;
+	}
+}
+	return single;
+}
+
+public String getName( ) {
+		return this. name;
+	}
+}
+
+*******************************************************************************************************************************************************
+TITRE: PATTERN SINGLETON
+ID: 3
+Date: 19-6-2017
+HEURE: 10:6:37
+*******************************************************************************************************************************************************
+

@@ -79,7 +79,6 @@ public class NaotyDAO extends DAO<Naoty> {
             while (result.next()) {
                 naoty = new Naoty(id, new Date(result.getString("DATE")), new Time(result.getString("TIME")), result.getString("TITLE"), KeywordDAO.firstKeywordOf(id));
             }
-            Database.getInstance().commit();
             result.close();
         } catch (SQLException ex) {
             Logger.getLogger(NaotyDAO.class.getName()).log(Level.SEVERE, null, ex);

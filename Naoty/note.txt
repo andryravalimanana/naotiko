@@ -1,0 +1,72 @@
+﻿SCHOOL
+- Exposé Communication optique
+- Doc 2G 3G
+- Chap 1 Mr Paul
+- Cours 2G 3G TCO 2017
+- Théorie des simulations des réseaux
+- Réseau intelligent
+- T. des simulation réseau
+	* chap 7
+- chapitre 2 Mr Paul
+- devoir anglais
+- installation logiciel calibration
+- Codage source et codage canal
+
+**********************************
+
+PERSONNAL
+- Fatana
+- presentation français
+- Presentation en anglais
+- Hira anglais
+- Ra Noum's
+
+*********************************
+
+PROJECT
+- Configmanager Naotiko
+- Amelioration rivescript
+- Tehirizo: conception system backup
+- Tab Tsy sahy mage 4
+- fomba famakiana tab grille d'accord
+- De ho nofiko ve - tarika hasina
+- Ny toaka fahavaloko taloha
+- kala kely
+- fomba famakiana tab a case numeroté
+
+************************************
+
+KETRIKA
+- Design pattern JAVA, PYTHON
+- e-commerce video
+- wordpress video
+- Le pattern factory (Java API)
+- PyQT, Tuto
+- python-patterns-master.zip
+- parser ini en java
+
+*************************************
+
+BOOK
+- Les T. secrete de l'hypnose 1
+- Les T. secrete de l'hypnose 2
+- Les T. secrete de l'hypnose 3
+- Les T. secrete de l'hypnose 4
+
+***********************************
+
+EVENT
+- 27 Juillet 2017: Exam Mr Paul August
+	* chapitre 1
+	* chapitre 2
+	* chapitre 3
+	* chapitre 4
+- 22 Juin 2017: C.C Mr Mamy Alain
+	* Cours 2G 3G TCO 2017
+	* Cours 4G TCO 2017
+	* Cours LTE 2017
+
+***********************************
+
+
+

@@ -1,0 +1,49 @@
+*******************************************************************************************************************************************************
+TITRE: GSM
+ID: 11
+Date: 22-6-2017
+HEURE: 10:8:6
+*******************************************************************************************************************************************************
+
+TECHNIQUE D'ACCES:
+------------------
+- AMRF ou FDMA: Mampiasa multiplexage fréquenciel
+- AMRT ou TDMA: Mampiasa multiplexage temporel.
+
+MULTIPLEXAGE FREQUENCIEL:
+-------------------------
+- Dispose 124 canaux GSM 900
+- 374 canaux GSM 1800
+
+MULTIPLEXAGE TEMPOREL:
+----------------------
+- Temps diviser en 8 time slot de 0,577ms.
+
+CANAUX PHYSIQUE: avy @ FDMA, le fréquence nozaraina ho atao canaux physique.
+----------------
+- Fantatra fa mizara 124 canaux de 200Khz ny liason, montante sy descandante.
+- Misy couple fréquence fona zan, montante sy descandante refa misy communication: tsy maintsy espacé de 45 MHZ reo!
+
+CANAUX LOGIQUE:
+---------------
+- Mba afahana mahazo utilisateur be de be @ canaux frequentiel ray de nozaraina en time slot le izy, misy user 8 afaka mapiasa frequence 1 satria mizara time slot 8 ny frequence 1. misy numero ny time slot ary ciblé @ iny ny DATA anle user ray. zay no atao oe canaux LOGIQUE!
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+BANDE GSM: 900 ET DSC-1800:
+---------------------------
+- 900Mhz: 
+	* 890,2 - 915MHz voie montante
+	* 935 - 960Mhz voie descandante
+- Densité spectrale porteuse en GSM: 200Khz
+* Bande de fréquence com montante: 890 - 915 Mhz
+* Bande de fréquence com descandante: 935 - 960 Mhz
+* Type de transmission: Numérique
+* Type de commutation; Paquet sur circuit
+* Technique de modulation: GMSK
+* Téchnique d'accès: TDMA - FDMA
+* Nombre d'intervalle de temps par trames: 8 times slot
+* Débit maximale de données: 9,6 kbps
+* Téchnique de multiplexage: Temp et fréqu
+* Rayon des cellules: 350m à 35km
+* Puissance des terminaux: 2 à 8W
+---------------------------------------------------------------------------------------------------------------------------------------------------------

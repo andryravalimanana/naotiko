@@ -1,0 +1,142 @@
+*******************************************************************************************************************************************************
+TITRE: COMMUNICATION OPTIQUE
+ID: 8
+Date: 19-6-2017
+HEURE: 13:35:40
+*******************************************************************************************************************************************************
+
+#LASER:
+-------
+Light Amplification by Stimulated Emission of Radiation, dispositif afaka mamorona lumère chromatique!
+
+#BANDE PASSANTE:
+---------------
+- Quantité d'information alefa amina support 1 @ fotoana ray (bit/sec). 
+- Izy koa dia intervalle de fréquence afaka andefasana donnée ao anaty support 1. (Hz)
+
+#ATTENUATION:
+-------------
+- Rehefa alefa ny signal de mihena ny puissance eny andalana na rehefa tonga. zay fehenana izay no antsoina oe Attenuation.
+- ny coeficient d'attenuation dia exprimé en alpha matetika (dB/km) ho anao trajet L(km). izany oe: alpha(dB/Km) = 1/L 10 Log10(Ps/Pe).
+
+#REPETEUR OPTIQUE:
+------------------
+- Amplificateur optique, dispositif manana pompe laser afaka miamplifié anle data!
+
+#LONGUEUR D'ONDE:
+-----------------
+- Distance entre crete na onde anakiroa, otrany expression vitesse ihany: V = L / t.
+- fa ny temps afaka soloina fréquence eto: t = 1/f zan oe: lambda = c / f.
+c: célérité de la lumière
+
+#MONOCHROMATIQUE:
+-----------------
+Composé d'une seule couleur ra lumière no resaka. Na seule fréquence ra Onde éléctromagnétique no resaka!
+
+#DISPERTION:
+-----------
+- Mivelatra le signaux alefa eny ampandehanana eny, elargissement temporel na fréquenciel.
+- Mahatonga azy tsy monochrome le lumière alefa de tsy mitovy ny vitesse ny spèctre tsirairay!
+
+#INDICE OPTIQUE:
+----------------
+- Ny indice optique na indice de refraction dia ny résistance ny milieu ray zay hidiran'ny hazavana. Coéfficient io tsy manana unité!
+- Ra ohatra ka 1,5 ny indice dia mihena 1,5 ny vitesse le lumière mitsofoka ao.
+- L'indice optique du vide est égal à 1, c'est la valeur la plus faible possible.
+- L'indice optique de la silice est de 1.5
+- L'indice optique d'un semi-conducteur est de l'ordre de 3.5
+
+#MILLEU HOMOGENE:
+------------------
+- Ra mitovy daholo ny singa nanamboarana azy zan oe constant ny indice de refraction ao!
+
+#SPECTRE LUMINEUX:
+------------------
+- Rehefa alefa ny lumière dia mizarazara kely le rayonnement (frequence kely ka miangeza) rehefa tena mande de ny alavan'iny no atao oe spectre. 
+- Ny lumière monochrome kely ny spectre no ny lumière blanche. zan oe tsy minana bande passante izy zan no le ray!
+
+#MULTIPLEXAGE:
+--------------
+- Technique afahana manakambana transmission maromaro alefa am canaux de transmission kely!
+
+#WDM:
+-----
+- (Multiplexage par répartion en Longueur d'Onde)
+- Technique de multiplexage izy io, afahana mandefa signaux lumineux izay mitondra information, samy hafa ny longeur d'onde ao anaty fibre optique ray!
+
+#TDM:
+-----
+- Time-Division Multiplexing (Multiplexage Temporel)
+- Technique de multiplexage zay afahana mizara bande passante ray ho canaux de transmission betsaka. 
+- Ny fotoana no zaraina zan oe ny axe des temps.
+
+#MODULATION DIRECTE:
+--------------------
+- Ny modulation moa dia fomba fireprésentena ny bit 0 na 1 am na cas anakiray
+- Ny modulation directe am communication optique dia mandefa lumière ny diode laser rehefa 1 dia maty izy rehefa 0.
+- Latsaka ny 5Gb/s ihany nefa no mety zay fa tsy arakany tsony vao mihaotra an'io, de mapiasa modulation externe.
+
+#MODULATION EXTERNE:
+--------------------
+- ra mihoatra ny 5Gb/s ny debit de mapiasa modulateur externe. Mirehatra fona le laser de dispositif ivelany no manapaka anle lumière!
+
+#REFRACTION ET REFLECTION:
+--------------------------
+- Ra mipasser millieu roa samy hafa ny lumière zan oe manana indice de refraction samy hafa: n1 et n2
+- dia tsy mitovy ny angle hidirany sy hivoahany fa refracté le lumière ra refraction.
+- fa mitovy ndray le angle ra reflection ohatrany fitaratra fa mandeha am ilany!
+Fig: 1 
+
+ASPECT PHySIQUE DE TRANSMISSION:
+--------------------------------
+- Manao reflection ny signaux ao anaty fibre optique rehefa mande.
+- Lasa misy dispersion satria tsy mitovy ny longeur andehanan'ny faiseau lumineux tsirairay!
+Fig: 2
+
+TYPES DE FIBRE:
+---------------
+	#FIBRE MONO-MODE:
+	-----------------
+
+	#A GRADIENT D'INDICE:
+	---------------------
+
+	#FIBRE MULTI-MODE:
+	-----------------
+
+#FILTRE OPTIQUE: fig: 3
+#ROUTEUR OPTIQUE: fig: 3
+
+			--------------------------------------------------- 20 Juin 2017 -------------------------------------------------------
+
+- Distortion atteraka ny transmission optique: 
+	- Ny attenuation
+	- Ny dispertion
+
+- Ny victime anle distorsion dia ireto: Ny portée sy ny Bande passante (Capacité de transmission).
+	* Ny portée: Attenuation
+	* BP: - Ny distortion intermodale: samy hafa ny temps de propagation ny groupe modale: rayon lumineux. antsoina ko oe dispertion temporelle!
+		  - Ny distortion chromatique: samy hafa ny temps de propagation ny longeur d'onde tsirairay zay mandrafitra ny spectre anle signaux.
+		  - Dispertion modale de polarisation: PMD, Tsy haiko ny tena dikany. :p
+
+DISPERSTION FIBRE MONO-MODE ET MULTI-MODE:
+------------------------------------------
+	- Ny Multi-mode: tratran reo distortion roa reo.
+	- Ny Mono-mode: ny Disto chromatique ihany satria ray ihany ny lumière mande ao fa tsy groupe modale.
+
+IRETO NO VERIFIENA REHEFA HANAO VERIFICATION ANA DISTORTION:
+-------------------------------------------------------------
+	- L'atténuation linéique des fibres.
+	- L'atténuation due aux raccordements.
+	- Le bilan de la liaison
+	- La régularité de la courbe de rétrodiffusion (voir annexe) :
+	- Les mesures de longueurs
+
+ATTENUATION:
+------------
+fig: 4
+
+#INONA NO MAHATONGA NY ATTENUATION?
+-----------------------------------
+	- Absorbtion:
+	- Diffusion:

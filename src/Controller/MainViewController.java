@@ -58,13 +58,13 @@ public class MainViewController {
                 openFile();
             }
         });
-        
+
         // MENUBAR EVENT
         mainView.getMenuBarView().getNewMenuItem().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                 String titre = JOptionPane.showInputDialog(mainView, "Ampidiro ny naoty vaovao.", "NAOTY VAOVAO", JOptionPane.INFORMATION_MESSAGE);
+                String titre = JOptionPane.showInputDialog(mainView, "Ampidiro ny naoty vaovao.", "NAOTY VAOVAO", JOptionPane.INFORMATION_MESSAGE);
                 if (titre != null) {
                     insertNewNaoty(titre);
                 }
@@ -92,7 +92,9 @@ public class MainViewController {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword(key);
                     ArrayList<Keyword> keywords = keywordDAO.findByKeyword(key);
                     for (Keyword keyword : keywords) {
-                        naotys.add(naotyDAO.findById(keyword.getIdNaoty()));
+                        Naoty n = naotyDAO.findById(keyword.getIdNaoty());
+                        n.setFirstKeyword(keyword.getTitle());
+                        naotys.add(n);
                     }
                     ntm.upDateTable(naotys);
                 }
@@ -108,30 +110,20 @@ public class MainViewController {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword(key);
                     ArrayList<Keyword> keywords = keywordDAO.findByKeyword(key);
                     for (Keyword keyword : keywords) {
-                        naotys.add(naotyDAO.findById(keyword.getIdNaoty()));
+                        Naoty n = naotyDAO.findById(keyword.getIdNaoty());
+                        n.setFirstKeyword(keyword.getTitle());
+                        naotys.add(n);
                     }
                     ntm.upDateTable(naotys);
                 }
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                String key = mainView.getSearchTextField().getText();
-                if (key.equals("")) {
-                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
-                    ntm.upDateTable(naotys);
-                } else {
-                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword(key);
-                    ArrayList<Keyword> keywords = keywordDAO.findByKeyword(key);
-                    for (Keyword keyword : keywords) {
-                        naotys.add(naotyDAO.findById(keyword.getIdNaoty()));
-                    }
-                    ntm.upDateTable(naotys);
-                }
+
             }
         });
-
-        //
     }
 
     private void insertNewNaoty(String titre) {
@@ -140,6 +132,7 @@ public class MainViewController {
         Naoty n = new Naoty(titre);
         naotyDAO.insert(n);
         n.setId(naotyDAO.nextNoteId() - 1);
+        keywordDAO.insert(new Keyword(titre, naotyDAO.nextNoteId() - 1));
         FileManager.createFile(n);
         ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
         ntm.upDateTable(naotys);
