@@ -23,9 +23,9 @@ public class KeywordDAO extends DAO<Keyword> {
     public boolean insert(Keyword keyword) {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO KEYWORD(TITLE, ID_NOTE) VALUES ('"
-                    + keyword.getTitle() + "' ,'"
-                    + keyword.getIdNaoty() + "');");
+            statement.executeUpdate("INSERT INTO KEYWORD(TITLE, ID_NOTE) VALUES (\""
+                    + keyword.getTitle() + "\" ,\""
+                    + keyword.getIdNaoty() + "\");");
             Database.getInstance().commit();
             return true;
         } catch (SQLException ex) {
@@ -52,9 +52,9 @@ public class KeywordDAO extends DAO<Keyword> {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE KEYWORD SET "
-                    + "TITLE = '" + keyword.getTitle()
-                    + "', ID_NOTE = '" + keyword.getIdNaoty()
-                    + "' WHERE ID = " + keyword.getId() + ";");
+                    + "TITLE = \"" + keyword.getTitle()
+                    + "\", ID_NOTE = \"" + keyword.getIdNaoty()
+                    + "\" WHERE ID = " + keyword.getId() + ";");
             Database.getInstance().commit();
             return true;
         } catch (SQLException ex) {
@@ -84,7 +84,7 @@ public class KeywordDAO extends DAO<Keyword> {
     public ArrayList<Keyword> findByKeyword(String keyword) {
         ArrayList<Keyword> listKeywords = new ArrayList<Keyword>();
         try {
-            ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM KEYWORD WHERE TITLE LIKE '%" + keyword + "%';"
+            ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM KEYWORD WHERE TITLE LIKE \"%" + keyword + "%\";"
             );
             while (result.next()) {
                 listKeywords.add(new Keyword(result.getInt("ID"), result.getString("TITLE"), result.getInt("ID_NOTE")));

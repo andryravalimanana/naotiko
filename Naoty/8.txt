@@ -61,14 +61,14 @@ Composé d'une seule couleur ra lumière no resaka. Na seule fréquence ra Onde 
 
 #WDM:
 -----
-- (Multiplexage par répartion en Longueur d'Onde)
+- Multiplexage par répartion en Longueur d'Onde
 - Technique de multiplexage izy io, afahana mandefa signaux lumineux izay mitondra information, samy hafa ny longeur d'onde ao anaty fibre optique ray!
 
 #TDM:
 -----
 - Time-Division Multiplexing (Multiplexage Temporel)
 - Technique de multiplexage zay afahana mizara bande passante ray ho canaux de transmission betsaka. 
-- Ny fotoana no zaraina zan oe ny axe des temps.
+- Ny TEMPS no zaraina zan oe ny axe des temps.
 
 #MODULATION DIRECTE:
 --------------------

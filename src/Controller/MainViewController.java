@@ -5,10 +5,14 @@ import Database.NaotyDAO;
 import Event.FileParser;
 import File.FileManager;
 import View.MainView;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import model.Keyword;
@@ -50,12 +54,34 @@ public class MainViewController {
             }
         });
 
-        // OPEN FILE
-        mainView.getToolBar().getAboutButton().addActionListener(new ActionListener() {
+        mainView.getTable().addMouseListener(new MouseListener() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                JTable table = (JTable) e.getSource();
+                Point p = e.getPoint();
+                int row = table.rowAtPoint(p);
+                int column = table.columnAtPoint(p);
+                if (e.getClickCount() == 2) {
+                    int id = (int) ntm.getValueAt(row, 0);
+                    System.out.println("Open file Id: "+id);
+                    FileManager.openFile(new Naoty(id, null, null), fileParser);
+                }
+            }
 
             @Override
-            public void actionPerformed(ActionEvent e) {
-                openFile();
+            public void mouseClicked(MouseEvent e) {
+             }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
             }
         });
 
@@ -93,8 +119,10 @@ public class MainViewController {
                     ArrayList<Keyword> keywords = keywordDAO.findByKeyword(key);
                     for (Keyword keyword : keywords) {
                         Naoty n = naotyDAO.findById(keyword.getIdNaoty());
-                        n.setFirstKeyword(keyword.getTitle());
-                        naotys.add(n);
+                        if (!keyword.getTitle().equals(n.getTitle())) {
+                            n.setFirstKeyword(keyword.getTitle());
+                            naotys.add(n);
+                        }
                     }
                     ntm.upDateTable(naotys);
                 }
@@ -111,8 +139,10 @@ public class MainViewController {
                     ArrayList<Keyword> keywords = keywordDAO.findByKeyword(key);
                     for (Keyword keyword : keywords) {
                         Naoty n = naotyDAO.findById(keyword.getIdNaoty());
-                        n.setFirstKeyword(keyword.getTitle());
-                        naotys.add(n);
+                        if (!keyword.getTitle().equals(n.getTitle())) {
+                            n.setFirstKeyword(keyword.getTitle());
+                            naotys.add(n);
+                        }
                     }
                     ntm.upDateTable(naotys);
                 }
@@ -127,8 +157,6 @@ public class MainViewController {
     }
 
     private void insertNewNaoty(String titre) {
-        titre.replace("'", "");
-        titre.replace("\"", "");
         Naoty n = new Naoty(titre);
         naotyDAO.insert(n);
         n.setId(naotyDAO.nextNoteId() - 1);
@@ -142,6 +170,7 @@ public class MainViewController {
 
     private void openFile() {
         int[] rows = mainView.getTable().getSelectedRows();
+        //mainView.getTable().;
         Object[] rowData = new Object[6];
         Object[] data = new Object[6];
         if (rows.length == 1) {

@@ -36,7 +36,6 @@ public class NaotyTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
-//			System.out.println("getValueAt");
         Object obj = null;
         switch (columnIndex) {
             case 0:
@@ -55,7 +54,6 @@ public class NaotyTableModel extends AbstractTableModel {
                 obj = this.naoty.get(rowIndex).getFirstKeyword();
                 break;
         }
-//			System.out.println("End getValueAt");
         return obj;
     }
 
@@ -91,8 +89,8 @@ public class NaotyTableModel extends AbstractTableModel {
 
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        // TODO Auto-generated method stub
-        return true;
+        
+        return false;
     }
 
     public boolean addRow(Naoty naoty) {

@@ -1,6 +1,7 @@
 package View;
 
 import Database.Database;
+import Database.KeywordDAO;
 import Database.NaotyDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,9 +9,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +23,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import model.Keyword;
 import model.NaotyTableModel;
 
 /**
@@ -37,8 +42,12 @@ public class MainView extends JFrame {
     private JScrollPane jScrollPane;
     private NaotyDAO naotyDAO;
     private JTextField searchTextField;
+    private KeywordDAO keywordDao;
+    
+    String header[] = {"ID", "DATY", "ORA", "LOHATENY", "TENY FANALAHIDY"};
 
-    public MainView() {
+    public MainView(KeywordDAO keywordDAO) {
+        this.keywordDao = keywordDAO;
         initComponet();
         initView();
         initTableau();
@@ -106,11 +115,42 @@ public class MainView extends JFrame {
 
     private void initTableau() {
 
-        String header[] = {"ID", "DATY", "ORA", "LOHATENY", "TENY FANALAHIDY"};
-
         NaotyTableModel ntm = new NaotyTableModel(naotyDAO.findByKeyword(""), header);
 
-        this.table = new JTable(ntm);
+        this.table = new JTable(ntm) {
+            //Implement table cell tool tips.
+            public String getToolTipText(MouseEvent e) {
+                String tip = "<html>";
+                java.awt.Point p = e.getPoint();
+                int rowIndex = rowAtPoint(p);
+                int colIndex = columnAtPoint(p);
+                int realColumnIndex = convertColumnIndexToModel(colIndex);
+
+                if (realColumnIndex == 3 | realColumnIndex == 4) {
+                    TableModel model = getModel();
+                    int id = (int) model.getValueAt(rowIndex, 0);
+                    ArrayList<Keyword> keywords = keywordDao.findByNoteID(id);
+                    for (Keyword keyword : keywords) {
+                        tip = tip +"<p>"+ keyword.getTitle()+"</p>" ;
+                    }
+                }
+                tip = tip + "</html>";
+                return tip;
+            }
+
+            //Implement table header tool tips. 
+            protected JTableHeader createDefaultTableHeader() {
+                return new JTableHeader(columnModel) {
+                    public String getToolTipText(MouseEvent e) {
+                        String tip = "Andrana";
+                        java.awt.Point p = e.getPoint();
+                        int index = columnModel.getColumnIndexAtX(p.x);
+                        int realIndex = columnModel.getColumn(index).getModelIndex();
+                        return header[realIndex];
+                    }
+                };
+            }
+        };
 
         this.table.setFillsViewportHeight(true);
         this.table.setRowHeight(40);
@@ -120,11 +160,12 @@ public class MainView extends JFrame {
 
         Font headerFont = new Font("Titre", Font.BOLD, 14);
         this.table.getTableHeader().setFont(headerFont);
-        this.table.getTableHeader().setForeground(Color.BLACK);;
+        this.table.getTableHeader().setForeground(Color.BLACK);
 
         this.table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         this.table.setPreferredScrollableViewportSize(new Dimension(400, 200));
-        this.table.setSelectionBackground(Color.lightGray);
+        this.table.setSelectionBackground(new Color(0, 162, 232));
+        this.table.setGridColor(Color.BLUE);
 
         // setUpSexeColumn(table, table.getColumnModel().getColumn(3));
 //		this.table.setShowVerticalLines(false);
@@ -134,7 +175,6 @@ public class MainView extends JFrame {
         //			this.table.setBackground(Color.LIGHT_GRAY);
         this.table.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
-
                     int row[];
 
                     @Override

@@ -29,7 +29,8 @@ public class ToolBar extends JToolBar {
     }
 
     private void initialiseComponent() {
-        newButton = new JButton(new ImageIcon(ToolBar.class.getResource("/img/new.png")));
+        ImageIcon newIcon = new ImageIcon(Tools.getScaledImage(new ImageIcon(ToolBar.class.getResource("/img/new.png")).getImage(), 24,24));
+        newButton = new JButton(newIcon);
         importButton = new JButton(new ImageIcon(ToolBar.class.getResource("/img/import.png")));
         editNoteButton = new JButton(new ImageIcon(ToolBar.class.getResource("/img/edit.png")));
         statisticButton = new JButton(new ImageIcon(ToolBar.class.getResource("/img/stat.png")));

@@ -75,7 +75,6 @@ public class FileParser extends Thread implements ProcessListened {
                 if (key.startsWith("#")) {
                     key = key.replace("#", "");
                     key = key.replace(":", "");
-                    key = key.replace("'", "");
                     if(!listString.contains(key)){
                         keywordDAO.insert(new Keyword(key, idFile));
                     } else {

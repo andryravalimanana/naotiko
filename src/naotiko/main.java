@@ -6,6 +6,7 @@ import Database.KeywordDAO;
 import Database.NaotyDAO;
 import Structure.Config;
 import View.MainView;
+import java.awt.GraphicsDevice;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class main {
 //        mainView.pack();
 //        
 //        MainViewController mvc = new MainViewController(mainPanel, naotyDAO, keywordDAO);
-            MainView mv = new MainView();
+            MainView mv = new MainView(keywordDAO);
             MainViewController mvc = new MainViewController(mv, naotyDAO, keywordDAO);
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);

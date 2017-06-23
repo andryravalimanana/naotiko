@@ -88,7 +88,8 @@ public class MenuBar extends JMenuBar{
         aboutMenu = new JMenu("Mombamomba");
         helpMenu = new JMenu("Fanampiana");
         // initialise file items
-        newMenuItem = new JMenuItem("Vaovao", new ImageIcon(MenuBar.class.getResource("/img/new.png")));
+        ImageIcon newIcon = new ImageIcon(Tools.getScaledImage(new ImageIcon(ToolBar.class.getResource("/img/new.png")).getImage(), 30,30));
+        newMenuItem = new JMenuItem("Vaovao", newIcon);
         importMenuItem = new JMenuItem("Hanafatra", new ImageIcon(MenuBar.class.getResource("/img/import.png")));
         exportMenuItem = new JMenuItem("Hanondrana",new ImageIcon(MenuBar.class.getResource("/img/export.png")));
         exitMenuItem = new JMenuItem("Hiala",new ImageIcon(MenuBar.class.getResource("/img/exit.png")));

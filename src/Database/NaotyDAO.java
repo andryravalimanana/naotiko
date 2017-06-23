@@ -25,11 +25,11 @@ public class NaotyDAO extends DAO<Naoty> {
     public boolean insert(Naoty naoty) {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO NAOTY(DATE, TIME, TITLE, KEYWORD) VALUES ('"
-                    + naoty.getDate().toString() + "','"
-                    + naoty.getTime().toString() + "','"
-                    + naoty.getTitle() + "','"
-                    + naoty.getFirstKeyword() + "');");
+            statement.executeUpdate("INSERT INTO NAOTY(DATE, TIME, TITLE, KEYWORD) VALUES (\""
+                    + naoty.getDate().toString() + "\",\""
+                    + naoty.getTime().toString() + "\",\""
+                    + naoty.getTitle() + "\",\""
+                    + naoty.getFirstKeyword() + "\");");
             connection.commit();
             statement.close();
             return true;
@@ -57,11 +57,11 @@ public class NaotyDAO extends DAO<Naoty> {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE NAOTY SET "
-                    + "DATE = '" + naoty.getDate()
-                    + "', TIME = '" + naoty.getTime()
-                    + "', TITLE = '" + naoty.getTitle()
-                    + "', KEYWORD = '" + naoty.getFirstKeyword()
-                    + "'WHERE ID = " + naoty.getId() + ";");
+                    + "DATE = \"" + naoty.getDate()
+                    + "\", TIME = \"" + naoty.getTime()
+                    + "\", TITLE = \"" + naoty.getTitle()
+                    + "\", KEYWORD = \"" + naoty.getFirstKeyword()
+                    + "\"WHERE ID = " + naoty.getId() + ";");
             connection.commit();
             return true;
         } catch (SQLException ex) {
@@ -72,7 +72,7 @@ public class NaotyDAO extends DAO<Naoty> {
 
     @Override
     public Naoty findById(int id) {
-        Naoty naoty = new Naoty();
+        Naoty naoty = null;
         try {
             ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM NAOTY WHERE ID = " + id + ";"
             );
@@ -90,7 +90,7 @@ public class NaotyDAO extends DAO<Naoty> {
     public ArrayList<Naoty> findByKeyword(String keyword) {
         ArrayList<Naoty> listNaoty = new ArrayList<Naoty>();
         try {
-            ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM NAOTY WHERE TITLE LIKE '%" + keyword + "%'"
+            ResultSet result = this.connection.createStatement().executeQuery("SELECT * FROM NAOTY WHERE TITLE LIKE \"%" + keyword + "%\""
             );
             while (result.next()) {
                 listNaoty.add(new Naoty(result.getInt("ID"), new Date(result.getString("DATE")), new Time(result.getString("TIME")), result.getString("TITLE"), KeywordDAO.firstKeywordOf(result.getInt("ID"))));
