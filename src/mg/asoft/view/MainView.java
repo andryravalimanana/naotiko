@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
+import javax.jws.Oneway;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,9 +25,11 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import mg.asoft.model.Keyword;
+import mg.asoft.model.Naoty;
 import mg.asoft.model.NaotyTableModel;
 
 /**
@@ -43,7 +47,7 @@ public class MainView extends JFrame {
     private NaotyDAO naotyDAO;
     private JTextField searchTextField;
     private KeywordDAO keywordDao;
-    
+
     String header[] = {"ID", "DATY", "ORA", "LOHATENY", "TENY FANALAHIDY"};
 
     public MainView(KeywordDAO keywordDAO) {
@@ -114,8 +118,9 @@ public class MainView extends JFrame {
     }
 
     private void initTableau() {
-
-        NaotyTableModel ntm = new NaotyTableModel(naotyDAO.findByKeyword(""), header);
+        ArrayList<Naoty> listNaoty = naotyDAO.findByKeyword("");
+        Collections.reverse(listNaoty);
+        NaotyTableModel ntm = new NaotyTableModel(listNaoty, header);
 
         this.table = new JTable(ntm) {
             //Implement table cell tool tips.
@@ -131,7 +136,7 @@ public class MainView extends JFrame {
                     int id = (int) model.getValueAt(rowIndex, 0);
                     ArrayList<Keyword> keywords = keywordDao.findByNoteID(id);
                     for (Keyword keyword : keywords) {
-                        tip = tip +"<p>"+ keyword.getTitle()+"</p>" ;
+                        tip = tip + "<p>" + keyword.getTitle() + "</p>";
                     }
                 }
                 tip = tip + "</html>";
@@ -243,4 +248,5 @@ public class MainView extends JFrame {
     public void setSearchTextField(JTextField searchTextField) {
         this.searchTextField = searchTextField;
     }
+
 }

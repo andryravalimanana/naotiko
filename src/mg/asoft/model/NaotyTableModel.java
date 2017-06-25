@@ -32,6 +32,7 @@ public class NaotyTableModel extends AbstractTableModel {
         // TODO Auto-generated method stub
         return this.naoty.size();
     }
+    
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
@@ -92,6 +93,8 @@ public class NaotyTableModel extends AbstractTableModel {
         
         return false;
     }
+    
+    
 
     public boolean addRow(Naoty naoty) {
         this.naoty.add(naoty);

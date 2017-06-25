@@ -10,7 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -18,6 +23,8 @@ import javax.swing.event.DocumentListener;
 import mg.asoft.model.Keyword;
 import mg.asoft.model.Naoty;
 import mg.asoft.model.NaotyTableModel;
+import mg.asoft.structure.Config;
+import mg.asoft.view.ConfigPanel;
 
 /**
  *
@@ -43,6 +50,7 @@ public class MainViewController {
 
     private void event() {
         // TOOLBAR EVENT
+        // New button event
         mainView.getToolBar().getNewButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -54,6 +62,26 @@ public class MainViewController {
             }
         });
 
+        // Config button event
+        mainView.getToolBar().getConfigButton().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfigPanel cp = new ConfigPanel();
+                int response = JOptionPane.showConfirmDialog(mainView, cp, "Kaonfigy", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    try {
+                        Config.defaultEditor = cp.getEditorPathTextField().getText();
+                        Config.pathNoteFile = cp.getNotePathTextEditor().getText();
+                        Config.updateConfig();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+
+        //TABLE EVENT
         mainView.getTable().addMouseListener(new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -63,14 +91,14 @@ public class MainViewController {
                 int column = table.columnAtPoint(p);
                 if (e.getClickCount() == 2) {
                     int id = (int) ntm.getValueAt(row, 0);
-                    System.out.println("Open file Id: "+id);
+                    System.out.println("Open file Id: " + id);
                     FileManager.openFile(new Naoty(id, null, null), fileParser);
                 }
             }
 
             @Override
             public void mouseClicked(MouseEvent e) {
-             }
+            }
 
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -86,6 +114,7 @@ public class MainViewController {
         });
 
         // MENUBAR EVENT
+        // event menu item
         mainView.getMenuBarView().getNewMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -96,7 +125,32 @@ public class MainViewController {
                 }
             }
         });
+        mainView.getMenuBarView().getConfigMenuItem().addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ConfigPanel cp = new ConfigPanel();
+                int response = JOptionPane.showConfirmDialog(mainView, cp, "Kaonfigy", JOptionPane.CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    try {
+                        Config.defaultEditor = cp.getEditorPathTextField().getText();
+                        Config.pathNoteFile = cp.getNotePathTextEditor().getText();
+                        Config.updateConfig();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        });
+        // Exit note menu item
+        mainView.getMenuBarView().getEditNoteMenuItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        // Event exit menu item 
         mainView.getMenuBarView().getExitMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -113,6 +167,7 @@ public class MainViewController {
                 String key = mainView.getSearchTextField().getText();
                 if (key.equals("")) {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+                    Collections.reverse(naotys);
                     ntm.upDateTable(naotys);
                 } else {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword(key);
@@ -133,6 +188,7 @@ public class MainViewController {
                 String key = mainView.getSearchTextField().getText();
                 if (key.equals("")) {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+                    Collections.reverse(naotys);
                     ntm.upDateTable(naotys);
                 } else {
                     ArrayList<Naoty> naotys = naotyDAO.findByKeyword(key);
@@ -163,6 +219,7 @@ public class MainViewController {
         keywordDAO.insert(new Keyword(titre, naotyDAO.nextNoteId() - 1));
         FileManager.createFile(n);
         ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+        Collections.reverse(naotys);
         ntm.upDateTable(naotys);
         FileManager.openFile(n, fileParser);
         System.out.println("Tafiditra ny naoty vaovao.");
