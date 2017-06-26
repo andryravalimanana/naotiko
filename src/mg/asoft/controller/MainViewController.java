@@ -1,5 +1,6 @@
 package mg.asoft.controller;
 
+import java.awt.Font;
 import mg.asoft.database.KeywordDAO;
 import mg.asoft.database.NaotyDAO;
 import mg.asoft.event.FileParser;
@@ -33,6 +34,8 @@ import mg.asoft.structure.Config;
 import mg.asoft.view.ConfigPanel;
 import mg.asoft.view.EditNoteDialogue;
 import static java.nio.file.StandardCopyOption.*;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
 import mg.asoft.dateAndTime.Time;
 
 /**
@@ -105,6 +108,15 @@ public class MainViewController {
                     Collections.reverse(naotys);
                     ntm.upDateTable(naotys);
                 }
+            }
+        });
+        
+        // ========================= Developper button event ================================
+        mainView.getToolBar().getAboutButton().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aboutDeveloppers();
             }
         });
         //========================================== TABLE EVENT ==========================================
@@ -199,6 +211,24 @@ public class MainViewController {
                     Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+            }
+        });
+        
+        // ========================= About menu item  ===========================
+        mainView.getMenuBarView().getNaotikoMenuItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aboutApplication();
+            }
+        });
+        
+        // ========================= About developpers =============================
+        mainView.getMenuBarView().getDeveloppersMenuItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                aboutDeveloppers();
             }
         });
 
@@ -297,10 +327,12 @@ public class MainViewController {
         Date date = Date.getNow();
         Time time = Time.getNow();
         String[] t = time.toString().split(":");
-        String timeFomated = t[0]+"h"+t[1];
+        String timeFomated = t[0] + "h" + t[1];
         String destinationPath = getDirectoryChooser("Toerana asina azy");
-        Files.copy(new File(getClass().getResource("/mg/asoft/database/Naoty.db").getPath()).toPath(), new File(destinationPath + "Naoty_"+date.toString()+"_"+timeFomated+".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
-        JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
+        if (!destinationPath.equals("NOSELECTION")) {
+            Files.copy(new File(getClass().getResource("/mg/asoft/database/Naoty.db").getPath()).toPath(), new File(destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
+            JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private String getDirectoryChooser(String title) {
@@ -316,9 +348,19 @@ public class MainViewController {
             path = chooser.getSelectedFile().getPath();
             System.out.println("getSelectedFile() : "
                     + chooser.getSelectedFile());
+            return path + "\\";
         } else {
             System.out.println("No Selection ");
+            return "NOSELECTION";
         }
-        return path + "\\";
+    }
+
+    private void aboutApplication() {
+        JOptionPane.showMessageDialog(mainView, "Naotiko 1.0.1\nCopyright Asoft © 2017\nhttp://www.asoft.mg", "Naotiko", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("/mg/asoft/img/logo.png")));
+    }
+    private void aboutDeveloppers() {
+        JOptionPane.showMessageDialog(mainView, "RAVALIMANANA Andry Niaina\n+261 32 29 746 76\nandry-niaina@yandex.com\nfb/andry.ravalimanana", "Namorona", JOptionPane.INFORMATION_MESSAGE,
+                new ImageIcon(getClass().getResource("/mg/asoft/img/Andry.png")));
     }
 }
