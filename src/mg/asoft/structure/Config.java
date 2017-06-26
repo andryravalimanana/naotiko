@@ -13,7 +13,7 @@ import mg.asoft.dateAndTime.Date;
 public class Config {
 
     public static String defaultEditor = "C:\\Program Files\\Sublime Text 3\\subl.exe";
-    public static String pathNoteFile = "./Naoty/";
+    public static String pathNoteFile = System.getProperty("user.home") + "\\Documents\\";
     public static String pathDatabase = Config.class.getResource("/mg/asoft/database/").getPath();
     public static String pathConfigFile = "./Config/";
 
@@ -33,17 +33,13 @@ public class Config {
     }
 
     public static Boolean updateConfig() throws IOException {
-//        Wini iniFile = new Wini(new File(pathConfigFile + "configuration.ini"));
-//        iniFile.put("Editor", "path", defaultEditor);
-//        iniFile.put("Naoty", "path", pathNoteFile);
-//        iniFile.store();
         Properties properties = new Properties();
 //============== Ici le fichier contenant les données de configuration est nommé 'db.properties' =============
         FileInputStream in = new FileInputStream(Config.class.getResource("/mg/asoft/structure/configuration.properties").getPath());
         properties.load(in);
 // ================ Ajout des propriétés ======================
         properties.put("Editor.path", defaultEditor);
-        properties.put("Naoty", pathNoteFile);
+        properties.put("Naoty.path", pathNoteFile);
        // properties.put("Database", pathDatabase);
         FileOutputStream out = new FileOutputStream(Config.class.getResource("/mg/asoft/structure/configuration.properties").getPath());
         properties.store(out, "========== Insert data propertie ==========");

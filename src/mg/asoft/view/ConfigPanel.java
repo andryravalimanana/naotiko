@@ -13,7 +13,7 @@ public class ConfigPanel extends javax.swing.JPanel {
 
     public ConfigPanel() {
         initComponents();
-        notePathTextEditor.setText(System.getProperty("user.home") + "\\Documents\\");
+        notePathTextEditor.setText(Config.pathNoteFile);
         editorPathTextField.setText(Config.defaultEditor);
     }
 
