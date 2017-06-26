@@ -12,8 +12,10 @@ import javax.swing.KeyStroke;
  *
  * @author Andry
  */
-public class MenuBar extends JMenuBar{
+public class MenuBar extends JMenuBar {
+
     // les menus
+
     private JMenu fileMenu;
     private JMenu EditMenu;
     private JMenu ViewMenu;
@@ -25,6 +27,7 @@ public class MenuBar extends JMenuBar{
     private JMenuItem newMenuItem;
     private JMenuItem importMenuItem;
     private JMenuItem exportMenuItem;
+    private JMenuItem clearDatabaseItem;
     private JMenuItem exitMenuItem;
     // meny edit
     private JMenuItem copyMenuItem;
@@ -37,13 +40,14 @@ public class MenuBar extends JMenuBar{
     // menu about
     private JMenuItem developpersMenuItem;
     private JMenuItem naotikoMenuItem;
-    
+
     public MenuBar() {
         initialiseComponent();
         // add item to file menu
         fileMenu.add(newMenuItem);
         fileMenu.add(importMenuItem);
         fileMenu.add(exportMenuItem);
+        fileMenu.add(clearDatabaseItem);
         fileMenu.add(exitMenuItem);
         // add item to edit menu
         EditMenu.add(copyMenuItem);
@@ -62,11 +66,12 @@ public class MenuBar extends JMenuBar{
         this.add(ViewMenu);
         this.add(aboutMenu);
         this.add(helpMenu);
-        
+
         // raccourcie claviers
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         importMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_M, ActionEvent.CTRL_MASK));
         exportMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
+        clearDatabaseItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, ActionEvent.CTRL_MASK));
         exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         cutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
@@ -78,8 +83,8 @@ public class MenuBar extends JMenuBar{
         naotikoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_F3, ActionEvent.CTRL_MASK)));
         helpMenu.setMnemonic(KeyEvent.VK_F1);
     }
-    
-    private void initialiseComponent(){
+
+    private void initialiseComponent() {
         // initialise menu
         fileMenu = new JMenu("Failina");
         EditMenu = new JMenu("Hanova");
@@ -88,10 +93,11 @@ public class MenuBar extends JMenuBar{
         aboutMenu = new JMenu("Mombamomba");
         helpMenu = new JMenu("Fanampiana");
         // initialise file items
-        newMenuItem = new JMenuItem("Vaovao",new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/new.png")));
+        newMenuItem = new JMenuItem("Vaovao", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/new.png")));
         importMenuItem = new JMenuItem("Hanafatra", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/import.png")));
-        exportMenuItem = new JMenuItem("Hanondrana",new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/export.png")));
-        exitMenuItem = new JMenuItem("Hiala",new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/exit.png")));
+        exportMenuItem = new JMenuItem("Hanondrana", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/export.png")));
+        clearDatabaseItem = new JMenuItem("Hanadio", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/clear.png")));
+        exitMenuItem = new JMenuItem("Hiala", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/exit.png")));
         // initialise edit items
         copyMenuItem = new JMenuItem("Kaopia", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/copy.png")));
         cutMenuItem = new JMenuItem("Hafindra", new ImageIcon(MenuBar.class.getResource("/mg/asoft/img/cut.png")));
@@ -240,8 +246,13 @@ public class MenuBar extends JMenuBar{
     public void setNaotikoMenuItem(JMenuItem naotikoMenuItem) {
         this.naotikoMenuItem = naotikoMenuItem;
     }
-    
-    
-    
-    
+
+    public JMenuItem getClearDatabaseItem() {
+        return clearDatabaseItem;
+    }
+
+    public void setClearDatabaseItem(JMenuItem clearDatabaseItem) {
+        this.clearDatabaseItem = clearDatabaseItem;
+    }
+
 }

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import mg.asoft.model.Keyword;
 import mg.asoft.model.Naoty;
 
 /**
@@ -36,6 +37,35 @@ public class NaotyDAO extends DAO<Naoty> {
         } catch (SQLException ex) {
             Logger.getLogger(NaotyDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+
+    public void clearDataBase() {
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(" DROP TABLE NAOTY;");
+            statement.executeUpdate(" DROP TABLE KEYWORD;");
+            statement.executeUpdate("CREATE TABLE NAOTY("
+                    + "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "DATE TEXTE NOT NULL,"
+                    + "TIME TEXTE NOT NULL,"
+                    + "TITLE TEXTE NOT NULL,"
+                    + "KEYWORD TEXTE NOT NULL"
+                    + ");");
+            statement.executeUpdate("CREATE TABLE KEYWORD("
+                    + "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + "TITLE TEXTE NOT NULL,"
+                    + "ID_NOTE INTEGER NOT NULL);");
+            Naoty naoty = new Naoty("TONGA SOA, MISAOTRA ANAO MAMPIASA NY FITAOVANA NAOTIKO.");
+            Keyword keyword = new Keyword("TONGA SOA, MISAOTRA ANAO MAMPIASA NY FITAOVANA NAOTIKO.", 1);
+            statement.executeUpdate("INSERT INTO KEYWORD(TITLE, ID_NOTE) VALUES (\""
+                    + keyword.getTitle() + "\" ,\""
+                    + keyword.getIdNaoty() + "\");");
+            insert(naoty);
+            connection.commit();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(NaotyDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 public class Database {
 
     private static Connection connection;
-
+    public static String databaseName = "Naoty.db";
     private Database() {
         try {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:"+Config.pathDatabase+"Naoty.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:"+Config.pathDatabase+databaseName);
             connection.setAutoCommit(false);
             System.out.println("Connected to the database ...");
         } catch (ClassNotFoundException ex) {

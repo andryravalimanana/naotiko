@@ -36,7 +36,10 @@ import mg.asoft.view.EditNoteDialogue;
 import static java.nio.file.StandardCopyOption.*;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
+import mg.asoft.database.Database;
 import mg.asoft.dateAndTime.Time;
+import mg.asoft.view.ChartViewFrame;
+import org.jfree.chart.ChartPanel;
 
 /**
  *
@@ -110,13 +113,22 @@ public class MainViewController {
                 }
             }
         });
-        
+
         // ========================= Developper button event ================================
         mainView.getToolBar().getAboutButton().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 aboutDeveloppers();
+            }
+        });
+
+        // ======================== Statistique button event ===============================
+        mainView.getToolBar().getStatisticButton().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ChartViewFrame(naotyDAO);
             }
         });
         //========================================== TABLE EVENT ==========================================
@@ -213,7 +225,7 @@ public class MainViewController {
 
             }
         });
-        
+
         // ========================= About menu item  ===========================
         mainView.getMenuBarView().getNaotikoMenuItem().addActionListener(new ActionListener() {
 
@@ -222,7 +234,7 @@ public class MainViewController {
                 aboutApplication();
             }
         });
-        
+
         // ========================= About developpers =============================
         mainView.getMenuBarView().getDeveloppersMenuItem().addActionListener(new ActionListener() {
 
@@ -241,6 +253,26 @@ public class MainViewController {
             }
         });
 
+        // ========================= Event statistika menu item ================================
+        mainView.getMenuBarView().getStatisticMenuItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ChartViewFrame(naotyDAO);
+            }
+        });
+
+        mainView.getMenuBarView().getClearDatabaseItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int response = JOptionPane.showConfirmDialog(mainView, "Ho Voafafa daholo ny tahiry rehetra!\nHo tohizana?", "Hanadio", JOptionPane.WARNING_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    naotyDAO.clearDataBase();
+                    ntm.upDateTable(naotyDAO.findByKeyword(""));
+                }
+            }
+        });
         // ======================================= SEARCH ============================================
         mainView.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 
@@ -359,6 +391,7 @@ public class MainViewController {
         JOptionPane.showMessageDialog(mainView, "Naotiko 1.0.1\nCopyright Asoft © 2017\nhttp://www.asoft.mg", "Naotiko", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("/mg/asoft/img/logo.png")));
     }
+
     private void aboutDeveloppers() {
         JOptionPane.showMessageDialog(mainView, "RAVALIMANANA Andry Niaina\n+261 32 29 746 76\nandry-niaina@yandex.com\nfb/andry.ravalimanana", "Namorona", JOptionPane.INFORMATION_MESSAGE,
                 new ImageIcon(getClass().getResource("/mg/asoft/img/Andry.png")));
