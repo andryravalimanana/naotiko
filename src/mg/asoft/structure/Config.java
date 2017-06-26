@@ -1,32 +1,53 @@
 package mg.asoft.structure;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import org.ini4j.Wini;
+import java.util.Properties;
+import mg.asoft.dateAndTime.Date;
 
 /**
  *
  * @author Andry
  */
 public class Config {
+
     public static String defaultEditor = "C:\\Program Files\\Sublime Text 3\\subl.exe";
     public static String pathNoteFile = "./Naoty/";
-    public static String pathDatabase = "./Database/";
-    public static String pathConfigFile = Config.class.getResource("/mg/asoft/structure/").getPath();
-    
-    public static Boolean loadConfig() throws IOException{
-        Wini iniFile = new Wini(new File(pathConfigFile+"configuration.ini"));
-        defaultEditor = iniFile.get("Editor", "path");
-        pathNoteFile = iniFile.get("Naoty", "path");
-        pathDatabase =  iniFile.get("Database", "path");
+    public static String pathDatabase = Config.class.getResource("/mg/asoft/database/").getPath();
+    public static String pathConfigFile = "./Config/";
+
+    public static Boolean loadConfig() throws IOException {
+
+        Properties properties = new Properties();
+//============== Ici le fichier contenant les données de configuration est nommé 'db.properties' =============
+        FileInputStream in = new FileInputStream(Config.class.getResource("/mg/asoft/structure/configuration.properties").getPath());
+        properties.load(in);
+// ================ Extraction des propriétés ======================
+        defaultEditor = properties.getProperty("Editor.path");
+        System.out.println("Editor: "+ defaultEditor);
+        pathNoteFile = properties.getProperty("Naoty.path");
+       // pathDatabase = properties.getProperty("Database.path");
+        in.close();
         return true;
     }
-    
-    public static Boolean updateConfig() throws IOException{
-        Wini iniFile = new Wini(new File(pathConfigFile+"configuration.ini"));
-        iniFile.put("Editor","path", defaultEditor);
-        iniFile.put("Naoty", "path", pathNoteFile);
-        iniFile.store();
+
+    public static Boolean updateConfig() throws IOException {
+//        Wini iniFile = new Wini(new File(pathConfigFile + "configuration.ini"));
+//        iniFile.put("Editor", "path", defaultEditor);
+//        iniFile.put("Naoty", "path", pathNoteFile);
+//        iniFile.store();
+        Properties properties = new Properties();
+//============== Ici le fichier contenant les données de configuration est nommé 'db.properties' =============
+        FileInputStream in = new FileInputStream(Config.class.getResource("/mg/asoft/structure/configuration.properties").getPath());
+        properties.load(in);
+// ================ Ajout des propriétés ======================
+        properties.put("Editor.path", defaultEditor);
+        properties.put("Naoty", pathNoteFile);
+       // properties.put("Database", pathDatabase);
+        FileOutputStream out = new FileOutputStream(Config.class.getResource("/mg/asoft/structure/configuration.properties").getPath());
+        properties.store(out, "========== Insert data propertie ==========");
+        in.close();
         return true;
     }
 }

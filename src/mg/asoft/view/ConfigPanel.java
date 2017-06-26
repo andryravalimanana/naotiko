@@ -1,10 +1,5 @@
 package mg.asoft.view;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.stage.FileChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;

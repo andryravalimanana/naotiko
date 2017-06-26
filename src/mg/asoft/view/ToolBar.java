@@ -30,11 +30,17 @@ public class ToolBar extends JToolBar {
 
     private void initialiseComponent() {
         newButton = new JButton(new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/new.png")));
+        newButton.setToolTipText("Hampiditra naoty vaovao");
         importButton = new JButton(new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/import.png")));
+        importButton.setToolTipText("Hanafatra avy any ivelany");
         editNoteButton = new JButton( new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/edit.png")));
+        editNoteButton.setToolTipText("Hanova naoty");
         statisticButton = new JButton(new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/stat.png")));
+        statisticButton.setToolTipText("Hijery statistika");
         configButton = new JButton(new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/config.png")));
+        configButton.setToolTipText("Kaonfigy");
         aboutButton = new JButton(new ImageIcon(ToolBar.class.getResource("/mg/asoft/img/developper.png")));
+        aboutButton.setToolTipText("Mombamomba");
     }
 
     public JButton getNewButton() {

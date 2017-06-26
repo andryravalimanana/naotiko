@@ -25,6 +25,7 @@ import mg.asoft.model.Naoty;
 import mg.asoft.model.NaotyTableModel;
 import mg.asoft.structure.Config;
 import mg.asoft.view.ConfigPanel;
+import mg.asoft.view.EditNoteDialogue;
 
 /**
  *
@@ -49,8 +50,8 @@ public class MainViewController {
     }
 
     private void event() {
-        // TOOLBAR EVENT
-        // New button event
+        // ================================= TOOLBAR EVENT ============================================
+        // ==============  New button event ================
         mainView.getToolBar().getNewButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,7 +63,7 @@ public class MainViewController {
             }
         });
 
-        // Config button event
+        // ================ Config button event ==============
         mainView.getToolBar().getConfigButton().addActionListener(new ActionListener() {
 
             @Override
@@ -81,7 +82,24 @@ public class MainViewController {
             }
         });
 
-        //TABLE EVENT
+        // ==================== Edit note event =======================
+        mainView.getToolBar().getEditNoteButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = getSelectedRow();
+                Naoty naotyToEdit = naotyDAO.findById(id);
+                EditNoteDialogue end = new EditNoteDialogue(naotyToEdit);
+                int response = JOptionPane.showConfirmDialog(mainView, end, "Hanova Naoty", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    naotyToEdit.setTitle(end.getTitleTextField1().getText());
+                    naotyDAO.update(naotyToEdit);
+                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+                    Collections.reverse(naotys);
+                    ntm.upDateTable(naotys);
+                }
+            }
+        });
+        //========================================== TABLE EVENT ==========================================
         mainView.getTable().addMouseListener(new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -113,8 +131,8 @@ public class MainViewController {
             }
         });
 
-        // MENUBAR EVENT
-        // event menu item
+        // ============================================= MENUBAR EVENT ===========================================
+        // ================== event menu item ====================
         mainView.getMenuBarView().getNewMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -125,6 +143,7 @@ public class MainViewController {
                 }
             }
         });
+        // ====================== Event config menu item ==========================
         mainView.getMenuBarView().getConfigMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -142,7 +161,7 @@ public class MainViewController {
                 }
             }
         });
-        // Exit note menu item
+        // ======================== Exit note menu item ==========================
         mainView.getMenuBarView().getEditNoteMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -150,7 +169,7 @@ public class MainViewController {
             }
         });
 
-        // Event exit menu item 
+        // ========================= Event exit menu item ============================= 
         mainView.getMenuBarView().getExitMenuItem().addActionListener(new ActionListener() {
 
             @Override
@@ -159,7 +178,7 @@ public class MainViewController {
             }
         });
 
-        // SEARCH
+        // ======================================= SEARCH ============================================
         mainView.getSearchTextField().getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
@@ -212,6 +231,8 @@ public class MainViewController {
         });
     }
 
+    // ============================================  MEHOTDE ================================================= 
+    // ++++++++++++++++++++ INSERT NOTE +++++++++++++++++++++++
     private void insertNewNaoty(String titre) {
         Naoty n = new Naoty(titre);
         naotyDAO.insert(n);
@@ -225,7 +246,8 @@ public class MainViewController {
         System.out.println("Tafiditra ny naoty vaovao.");
     }
 
-    private void openFile() {
+    //++++++++++++++++++++++++ GET SELECTED ROW ++++++++++++++++++++++++++++++
+    private int getSelectedRow() {
         int[] rows = mainView.getTable().getSelectedRows();
         //mainView.getTable().;
         Object[] rowData = new Object[6];
@@ -234,9 +256,7 @@ public class MainViewController {
             for (int i = 0; i < 6; i++) {
                 rowData[i] = ((NaotyTableModel) mainView.getTable().getModel()).getValueAt(rows[0], i);
             }
-            int id = (int) rowData[0];
-            FileManager.openFile(new Naoty(id, null, null), fileParser);
         }
+        return (int) rowData[0];
     }
-
 }
