@@ -10,22 +10,30 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import mg.asoft.dateAndTime.Date;
 import mg.asoft.model.Keyword;
 import mg.asoft.model.Naoty;
 import mg.asoft.model.NaotyTableModel;
 import mg.asoft.structure.Config;
 import mg.asoft.view.ConfigPanel;
 import mg.asoft.view.EditNoteDialogue;
+import static java.nio.file.StandardCopyOption.*;
+import mg.asoft.dateAndTime.Time;
 
 /**
  *
@@ -166,6 +174,31 @@ public class MainViewController {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                int id = getSelectedRow();
+                Naoty naotyToEdit = naotyDAO.findById(id);
+                EditNoteDialogue end = new EditNoteDialogue(naotyToEdit);
+                int response = JOptionPane.showConfirmDialog(mainView, end, "Hanova Naoty", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (response == JOptionPane.OK_OPTION) {
+                    naotyToEdit.setTitle(end.getTitleTextField1().getText());
+                    naotyDAO.update(naotyToEdit);
+                    ArrayList<Naoty> naotys = naotyDAO.findByKeyword("");
+                    Collections.reverse(naotys);
+                    ntm.upDateTable(naotys);
+                }
+            }
+        });
+
+        // ======================== Event export menu item ============================
+        mainView.getMenuBarView().getExportMenuItem().addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    exportDatabase();
+                } catch (IOException ex) {
+                    Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         });
 
@@ -258,5 +291,34 @@ public class MainViewController {
             }
         }
         return (int) rowData[0];
+    }
+
+    private void exportDatabase() throws IOException {
+        Date date = Date.getNow();
+        Time time = Time.getNow();
+        String[] t = time.toString().split(":");
+        String timeFomated = t[0]+"h"+t[1];
+        String destinationPath = getDirectoryChooser("Toerana asina azy");
+        Files.copy(new File(getClass().getResource("/mg/asoft/database/Naoty.db").getPath()).toPath(), new File(destinationPath + "Naoty_"+date.toString()+"_"+timeFomated+".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
+        JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private String getDirectoryChooser(String title) {
+        JFileChooser chooser = new JFileChooser();
+        String path = "";
+        chooser.setCurrentDirectory(new java.io.File("System.getProperty(\"user.home\") + \"\\\\Documents\\\\\""));
+        chooser.setDialogTitle(title);
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if (chooser.showOpenDialog(mainView) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("getCurrentDirectory(): "
+                    + chooser.getCurrentDirectory());
+            path = chooser.getSelectedFile().getPath();
+            System.out.println("getSelectedFile() : "
+                    + chooser.getSelectedFile());
+        } else {
+            System.out.println("No Selection ");
+        }
+        return path + "\\";
     }
 }
