@@ -363,9 +363,13 @@ public class MainViewController {
         String[] t = time.toString().split(":");
         String timeFomated = t[0] + "h" + t[1];
         String destinationPath = getDirectoryChooser("Toerana asina azy");
+        Runtime runtime = Runtime.getRuntime();
         if (!destinationPath.equals("NOSELECTION")) {
-            Files.copy(new File(Config.pathDatabase+"Naoty.db").toPath(), new File(destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(new File(Config.pathDatabase + "Naoty.db").toPath(), new File(Config.pathNoteFile + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
             JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
+            String[] commande = {getClass().getResource("/mg/asoft/tools/Rar.exe").getFile(), "a",
+                destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".rar", Config.pathNoteFile + "*.*"};
+            runtime.exec(commande);
         }
     }
 
