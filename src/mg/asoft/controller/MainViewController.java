@@ -269,6 +269,8 @@ public class MainViewController {
                 int response = JOptionPane.showConfirmDialog(mainView, "Ho Voafafa daholo ny tahiry rehetra!\nHo tohizana?", "Hanadio", JOptionPane.WARNING_MESSAGE);
                 if (response == JOptionPane.OK_OPTION) {
                     naotyDAO.clearDataBase();
+                    Naoty naoty = new Naoty("TONGA SOA, MISAOTRA ANAO MAMPIASA NY NAOTIKO.");
+                    insertNewNaoty(naoty.getTitle());
                     ntm.upDateTable(naotyDAO.findByKeyword(""));
                 }
             }
@@ -362,7 +364,7 @@ public class MainViewController {
         String timeFomated = t[0] + "h" + t[1];
         String destinationPath = getDirectoryChooser("Toerana asina azy");
         if (!destinationPath.equals("NOSELECTION")) {
-            Files.copy(new File(getClass().getResource("/mg/asoft/database/Naoty.db").getPath()).toPath(), new File(destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(new File(Config.pathDatabase+"Naoty.db").toPath(), new File(destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
             JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
         }
     }

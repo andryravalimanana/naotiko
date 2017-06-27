@@ -56,12 +56,12 @@ public class NaotyDAO extends DAO<Naoty> {
                     + "ID INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + "TITLE TEXTE NOT NULL,"
                     + "ID_NOTE INTEGER NOT NULL);");
-            Naoty naoty = new Naoty("TONGA SOA, MISAOTRA ANAO MAMPIASA NY NAOTIKO.");
-            Keyword keyword = new Keyword("TONGA SOA, MISAOTRA ANAO MAMPIASA NY NAOTIKO.", 1);
-            statement.executeUpdate("INSERT INTO KEYWORD(TITLE, ID_NOTE) VALUES (\""
-                    + keyword.getTitle() + "\" ,\""
-                    + keyword.getIdNaoty() + "\");");
-            insert(naoty);
+//            Naoty naoty = new Naoty("TONGA SOA, MISAOTRA ANAO MAMPIASA NY NAOTIKO.");
+//            Keyword keyword = new Keyword("TONGA SOA, MISAOTRA ANAO MAMPIASA NY NAOTIKO.", 1);
+//            insert(naoty);
+//            statement.executeUpdate("INSERT INTO KEYWORD(TITLE, ID_NOTE) VALUES (\""
+//                    + keyword.getTitle() + "\" ,\""
+//                    + keyword.getIdNaoty() + "\");");
             connection.commit();
             statement.close();
         } catch (SQLException ex) {

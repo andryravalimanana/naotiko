@@ -51,8 +51,17 @@ public class ChartViewFrame extends JFrame {
             incrementNb(day, dayRepartition);
         }
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (int i = 1; i < 32; i++) {
-            dataset.addValue(dayRepartition.get(i), "Andro", new Integer(i));
+        for (int i = 1; i < 8; i++) {
+            dataset.addValue(dayRepartition.get(i), "Herinandro 1", new Integer(i));
+        }
+        for (int i = 8; i < 15; i++) {
+            dataset.addValue(dayRepartition.get(i), "Herinandro 2", new Integer(i));
+        }
+        for (int i = 15; i < 22; i++) {
+            dataset.addValue(dayRepartition.get(i), "Herinandro 3", new Integer(i));
+        }
+        for (int i = 22; i < 32; i++) {
+            dataset.addValue(dayRepartition.get(i), "Herinandro 4", new Integer(i));
         }
         chart = ChartFactory.createBarChart("", "Andro", "Naoty",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
