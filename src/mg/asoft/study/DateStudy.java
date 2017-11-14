@@ -3,8 +3,6 @@ package mg.asoft.study;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import sun.security.krb5.JavaxSecurityAuthKerberosAccess;
-
 /**
  *
  * @author Andry

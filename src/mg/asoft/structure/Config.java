@@ -3,6 +3,8 @@ package mg.asoft.structure;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Properties;
 import mg.asoft.dateAndTime.Date;
 
@@ -14,8 +16,9 @@ public class Config {
 
     public static String defaultEditor = "C:\\Program Files\\Sublime Text 3\\subl.exe";
     public static String pathNoteFile = System.getProperty("user.home") + "\\Documents\\";
-    public static String pathDatabase = "./Database/";
+    public static String pathDatabase = pathNoteFile;
     public static String pathConfigFile = "./Config/";
+    public static ArrayList<Path> DBBackupList = new ArrayList<Path>();
 
     public static Boolean loadConfig() throws IOException {
 
@@ -27,7 +30,7 @@ public class Config {
         defaultEditor = properties.getProperty("Editor.path");
         System.out.println("Editor: "+ defaultEditor);
         pathNoteFile = properties.getProperty("Naoty.path");
-       // pathDatabase = properties.getProperty("Database.path");
+        pathDatabase = pathNoteFile;
         in.close();
         return true;
     }

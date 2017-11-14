@@ -131,6 +131,7 @@ public class MainViewController {
                 new ChartViewFrame(naotyDAO);
             }
         });
+
         //========================================== TABLE EVENT ==========================================
         mainView.getTable().addMouseListener(new MouseListener() {
             @Override
@@ -244,11 +245,18 @@ public class MainViewController {
             }
         });
 
-        // ========================= Event exit menu item ============================= 
+        // ========================= Event exit menu item =============================
         mainView.getMenuBarView().getExitMenuItem().addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                for (Path file : Config.DBBackupList) {
+                    try {
+                        Files.delete(file);
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 System.exit(0);
             }
         });
@@ -328,7 +336,7 @@ public class MainViewController {
         });
     }
 
-    // ============================================  MEHOTDE ================================================= 
+    // ============================================  MEHOTDE =================================================
     // ++++++++++++++++++++ INSERT NOTE +++++++++++++++++++++++
     private void insertNewNaoty(String titre) {
         Naoty n = new Naoty(titre);
@@ -366,10 +374,11 @@ public class MainViewController {
         Runtime runtime = Runtime.getRuntime();
         if (!destinationPath.equals("NOSELECTION")) {
             Files.copy(new File(Config.pathDatabase + "Naoty.db").toPath(), new File(Config.pathNoteFile + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath(), StandardCopyOption.REPLACE_EXISTING);
-            JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
-            String[] commande = {getClass().getResource("/mg/asoft/tools/Rar.exe").getFile(), "a",
+            String[] commande = {"./tools/Rar.exe", "a", "-ep1",
                 destinationPath + "Naoty_" + date.toString() + "_" + timeFomated + ".rar", Config.pathNoteFile + "*.*"};
             runtime.exec(commande);
+            Config.DBBackupList.add(new File(Config.pathDatabase + "Naoty_" + date.toString() + "_" + timeFomated + ".db").toPath());
+            JOptionPane.showMessageDialog(mainView, "Voaondrana ny naoty", "Fanondranana naoty", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
