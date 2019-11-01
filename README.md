@@ -2,4 +2,4 @@
 ## Fanazavana fohy
 Natao handaminana ny naoty voaray rehetra hatramin'izay, mba tsy ho lany fotoana be rehefa hijery azy any aorina. Misy algorithme ihany koa mijery oe oe tokony asina jery todika ny naoty iray mba ho tadidy mandrakizay. (Leitner system)
 
-![Naotiko](https://lh3.googleusercontent.com/dMOCfReo0L6GRVQGNPu3cDUr_gt3cUcJXBgKO9NmP1gZupCizrJy3MsDAHYHY08RjoFSteJ3EbsllTAdL50ul7Qlw0UZ3X79DVW4tafZi0h-Ev8zElyXHni9dkbz_lnhhDhO7ZDthv8FZ1tf0t9kc40nymzDmzps5j5u6De_K65S4JIMXSqNZIi7cVoNciwc1h8tFcQtf7X88ObQZAEuMIh-OxPmQEnWu3wGOeJmTJjbEXw1IQczOPokU7srm9hpRtUHkmR4Gh9oIz-JU31xapDVBRv88J7WQct7V7yxubCrWxwqMdctJZhRMg3JG5o6HZd3mNbd80zBSGtVoOVk6bx2qWVUfj-uBY0PumhuF0VUdqNHvrCL6KAvoxfbYbM88D8PP0G2AJhw6AoZTuSvlMz6J3vLVq8qI2Rm29mwU2uNEPhbGB80NzojyseT_ICps8SWFvx7tMtG8cPE-YeZxKCXlcJ18VljixwLz3beoDlZ2m4ac7rSDNLWdtOinRhpJw-NnpbNVP6L93-ZaiFKZkCZ4Xv-dyA0HXCa8wdsyXIHwc1fBGASAoHKlUjio50mGC2B-zQV87VeGfAzFNim83Ccv6IKfWK3mNgmyC-FDd7HxKiGD2bfN3klrKMG_2a3xGFzU9hBqMbBqJRcR8aGA2E-=w1204-h651-no)
+![Naotiko](https://github.com/andryravalimanana/naotiko/blob/master/Screenshot.png)
